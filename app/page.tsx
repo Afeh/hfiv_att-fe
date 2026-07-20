@@ -144,7 +144,7 @@ export default function Page() {
       <header className="header">
         <div className="header-row">
           <div>
-            <span className="eyebrow">Weekend Check-In</span>
+            <span className="eyebrow">Choir Weekend Check-In</span>
             <h1>{dayLabel(date)}</h1>
           </div>
           <Link href="/stats" className="nav-icon-link" title="View attendance stats">
