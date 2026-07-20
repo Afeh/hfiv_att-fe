@@ -1,0 +1,457 @@
+:root {
+  --ink: #16211c;
+  --paper: #f1f4ee;
+  --paper-line: #d9dfd2;
+  --accent: #a8791e;
+  --accent-soft: #ded0ac;
+  --muted: #5b6b5e;
+  --danger: #a4453a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+body {
+  font-family: var(--font-body), sans-serif;
+}
+
+.page {
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 32px 20px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 20px;
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.header h1 {
+  font-family: var(--font-display), serif;
+  font-size: 30px;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.date-input {
+  margin-top: 8px;
+  border: 1px solid var(--paper-line);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.search-input {
+  width: 100%;
+  font-size: 18px;
+  font-family: var(--font-body), sans-serif;
+  padding: 14px 16px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+}
+
+.search-input:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 1px;
+}
+
+.results {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  border: 1px solid var(--paper-line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: white;
+}
+
+.result-row {
+  width: 100%;
+  text-align: left;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--paper-line);
+  font-size: 16px;
+  font-family: var(--font-body), sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.result-row:last-child {
+  border-bottom: none;
+}
+
+.result-row:hover,
+.result-row:focus-visible {
+  background: var(--paper);
+}
+
+.add-new {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.error {
+  color: var(--danger);
+  font-size: 14px;
+  margin: 0;
+}
+
+.roster {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.roster-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: var(--font-display), serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--paper-line);
+  padding-bottom: 8px;
+}
+
+.count {
+  font-family: var(--font-body), sans-serif;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.empty {
+  color: var(--muted);
+  font-size: 14px;
+  font-style: italic;
+}
+
+.roster-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.roster-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--paper-line);
+}
+
+.stamp {
+  color: var(--accent);
+  font-weight: 700;
+  font-family: var(--font-display), serif;
+  font-size: 16px;
+}
+
+.name {
+  flex: 1;
+  font-size: 16px;
+}
+
+.remove {
+  border: none;
+  background: none;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+.remove:hover,
+.remove:focus-visible {
+  color: var(--danger);
+}
+
+.others {
+  padding-top: 8px;
+  border-top: 2px dashed var(--paper-line);
+}
+
+.check-in-btn {
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 5px 14px;
+  border: 1.5px solid var(--accent);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+}
+
+.check-in-btn:hover,
+.check-in-btn:focus-visible {
+  background: var(--accent);
+  color: white;
+}
+
+/* ── Navigation ─────────────────────────────────────────────── */
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.nav-icon-link {
+  color: var(--muted);
+  padding: 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+  margin-top: 4px;
+}
+
+.nav-icon-link:hover,
+.nav-icon-link:focus-visible {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav-links {
+  margin-top: -12px;
+}
+
+.nav-link {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+  color: var(--accent);
+}
+
+/* ── PIN Gate ───────────────────────────────────────────────── */
+
+.pin-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: var(--paper);
+}
+
+.pin-card {
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 40px 32px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.pin-lock-icon {
+  font-size: 36px;
+  margin-bottom: 4px;
+}
+
+.pin-title {
+  font-family: var(--font-display), serif;
+  font-size: 22px;
+  margin: 0;
+}
+
+.pin-subtitle {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 12px;
+}
+
+.pin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+
+.pin-input {
+  width: 120px;
+  text-align: center;
+  font-size: 28px;
+  font-family: var(--font-body), sans-serif;
+  letter-spacing: 0.3em;
+  padding: 12px 8px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+
+.pin-input:focus-visible {
+  outline: 3px solid var(--accent-soft);
+  outline-offset: 2px;
+}
+
+.pin-input::placeholder {
+  letter-spacing: 0.3em;
+  color: var(--paper-line);
+}
+
+.pin-error {
+  color: var(--danger);
+  font-size: 13px;
+  margin: 0;
+}
+
+.pin-submit {
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 32px;
+  border: none;
+  border-radius: 6px;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.pin-submit:hover:not(:disabled),
+.pin-submit:focus-visible:not(:disabled) {
+  opacity: 0.85;
+}
+
+.pin-submit:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ── Stats Table ────────────────────────────────────────────── */
+
+.stats-table-wrapper {
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.stats-table thead {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.stats-table th {
+  text-align: left;
+  padding: 10px 14px;
+  font-family: var(--font-display), serif;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+
+.stats-table th.num,
+.stats-table td.num {
+  text-align: right;
+  width: 80px;
+}
+
+.stats-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.stats-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.stats-table tbody tr {
+  transition: background 0.12s;
+}
+
+.stats-table tbody tr:hover {
+  background: var(--paper);
+}
+
+.stat-name {
+  font-weight: 500;
+}
+
+.stat-total {
+  font-weight: 600;
+}
+
+.stat-present {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.stat-missed {
+  color: var(--danger);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .roster-row {
+    animation: settle 180ms ease-out;
+  }
+}
+
+@keyframes settle {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
