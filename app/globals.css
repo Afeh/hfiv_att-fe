@@ -424,6 +424,10 @@ body {
 
 .stat-name {
   font-weight: 500;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .stat-total {

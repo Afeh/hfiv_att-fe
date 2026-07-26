@@ -60,9 +60,20 @@ export default function StatsPage() {
     }
   }
 
-  function cancelEdit() {
+    function cancelEdit() {
     setEditingId(null);
     setEditValue("");
+  }
+
+  function displayName(name: string): string {
+    const trimmed = name.trim();
+    const maxLen = 18;
+    if (trimmed.length <= maxLen) return trimmed;
+
+    const parts = trimmed.split(/\s+/);
+    if (parts.length < 2) return trimmed.slice(0, maxLen - 1) + "…";
+
+    return parts[0] + " " + parts[parts.length - 1][0] + ".";
   }
 
   return (
@@ -125,9 +136,11 @@ export default function StatsPage() {
                         type="button"
                         className="name-edit-btn"
                         onClick={() => startEdit(s)}
-                        title="Edit name"
+                        title={s.name}
                       >
-                        <span className="name-text">{s.name}</span>
+                        <span className="name-text" title={s.name}>
+                          {displayName(s.name)}
+                        </span>
                         <svg
                           className="edit-icon"
                           width="14"
