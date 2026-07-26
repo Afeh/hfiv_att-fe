@@ -1,18 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { verifyPin } from "../lib/api";
 
 export function PinGate({ children }: { children: React.ReactNode }) {
   const [pin, setPin] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [unlocked, setUnlocked] = useState(() => {
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("attendance_unlocked") === "true";
+  const [unlocked, setUnlocked] = useState(false);
+
+  /* Check sessionStorage after mount so SSR matches client initially */
+  useEffect(() => {
+    if (sessionStorage.getItem("attendance_unlocked") === "true") {
+      setUnlocked(true);
     }
-    return false;
-  });
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
