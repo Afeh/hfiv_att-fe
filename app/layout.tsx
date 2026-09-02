@@ -16,8 +16,8 @@ const workSans = Work_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Attendance",
-  description: "Weekend check-in",
+  title: "HFIV App",
+  description: "Attendance & Contribution Tracker",
 };
 
 export default function RootLayout({
