@@ -654,3 +654,681 @@ body {
     transform: translateY(0);
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Landing Page
+   ═══════════════════════════════════════════════════════════════════ */
+
+.landing-page {
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.landing-header {
+  text-align: center;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.landing-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.landing-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 32px 24px;
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: background 0.15s, transform 0.15s;
+  cursor: pointer;
+}
+
+.landing-card:hover,
+.landing-card:focus-visible {
+  background: var(--paper);
+  transform: translateY(-2px);
+}
+
+.landing-card-icon {
+  font-size: 36px;
+}
+
+.landing-card-title {
+  font-family: var(--font-display), serif;
+  font-size: 22px;
+  margin: 0;
+}
+
+.landing-card-desc {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0;
+  text-align: center;
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   Contribution Tracker — Shared
+   ═══════════════════════════════════════════════════════════════════ */
+
+.ct-header-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.ct-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-section-heading {
+  font-family: var(--font-display), serif;
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--paper-line);
+  padding-bottom: 8px;
+}
+
+.ct-section-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin: -8px 0 0;
+}
+
+.ct-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ct-list-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--paper-line);
+}
+
+.ct-list-row:last-child {
+  border-bottom: none;
+}
+
+.ct-list-rank {
+  font-family: var(--font-display), serif;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 24px;
+}
+
+.ct-list-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.ct-list-name {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.ct-list-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ct-list-value {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--accent);
+}
+
+.ct-list-amounts {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.ct-list-owed {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--danger);
+}
+
+/* ── Overall Progress Card ─────────────────────────────────────── */
+
+.ct-overall-card {
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 10px;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-overall-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.ct-big-number {
+  font-family: var(--font-display), serif;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.ct-of-label {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.ct-pct-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.ct-meta-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Progress Bar ─────────────────────────────────────────────── */
+
+.ct-progress-track {
+  width: 100%;
+  height: 12px;
+  background: var(--paper-line);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.ct-progress-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 6px;
+  transition: width 0.4s ease;
+}
+
+.ct-progress-fill.ct-progress-muted {
+  background: var(--muted);
+}
+
+/* ── Category Cards ────────────────────────────────────────────── */
+
+.ct-category-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ct-category-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: white;
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--ink);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.ct-category-card:hover,
+.ct-category-card:focus-visible {
+  border-color: var(--accent);
+  background: var(--paper);
+}
+
+.ct-cat-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ct-cat-name {
+  font-family: var(--font-display), serif;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.ct-cat-pct {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.ct-cat-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.ct-cat-in-kind {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+.ct-add-category-link {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.ct-add-category-link:hover,
+.ct-add-category-link:focus-visible {
+  text-decoration: underline;
+}
+
+/* ── Buttons ───────────────────────────────────────────────────── */
+
+.ct-btn {
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.ct-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ct-btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.ct-btn-primary:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.ct-btn-secondary {
+  background: transparent;
+  border: 1.5px solid var(--paper-line);
+  color: var(--muted);
+}
+
+.ct-btn-secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ct-btn-sm {
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border: 1.5px solid var(--paper-line);
+  border-radius: 5px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.ct-btn-sm:hover:not(:disabled) {
+  background: var(--paper);
+}
+
+.ct-btn-sm:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.ct-btn-accent {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ct-btn-accent {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+
+.ct-btn-accent:hover:not(:disabled) {
+  opacity: 0.85;
+}
+
+.ct-btn-accent:hover:not(:disabled) {
+  background: var(--accent);
+  color: white;
+}
+
+.ct-btn-danger {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.ct-btn-danger:hover:not(:disabled) {
+  background: var(--danger);
+  color: white;
+}
+
+.ct-btn-fulfilled {
+  border-color: #2d7a4f;
+  color: #2d7a4f;
+  background: #e8f5e9;
+}
+
+.ct-action-group {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+/* ── Forms ─────────────────────────────────────────────────────── */
+
+.ct-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ct-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.ct-input {
+  font-family: var(--font-body), sans-serif;
+  font-size: 15px;
+  padding: 10px 12px;
+  border: 1.5px solid var(--paper-line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+
+.ct-input:focus-visible {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+.ct-input-short {
+  width: 120px;
+}
+
+.ct-input-inline {
+  font-family: var(--font-body), sans-serif;
+  font-size: 14px;
+  padding: 4px 8px;
+  border: 1.5px solid var(--accent);
+  border-radius: 4px;
+  background: white;
+  color: var(--ink);
+  outline: none;
+}
+
+.ct-input-inline:focus-visible {
+  box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.ct-input-num {
+  width: 100px;
+}
+
+.ct-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.ct-form-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.ct-form-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.ct-form-row .ct-input {
+  flex: 1;
+}
+
+.ct-form-section {
+  background: white;
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.ct-add-form {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--paper-line);
+}
+
+/* ── Table ─────────────────────────────────────────────────────── */
+
+.ct-table-wrapper {
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  overflow-x: auto;
+  background: white;
+}
+
+.ct-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.ct-table th {
+  text-align: left;
+  padding: 10px 12px;
+  font-family: var(--font-display), serif;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border-bottom: 2px solid var(--paper-line);
+  white-space: nowrap;
+}
+
+.ct-th-num {
+  text-align: right;
+}
+
+.ct-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.ct-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.ct-table tbody tr:hover {
+  background: var(--paper);
+}
+
+.ct-td-name {
+  min-width: 120px;
+}
+
+.ct-name-text {
+  font-weight: 500;
+}
+
+.ct-td-num {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ct-td-paid {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.ct-td-balance {
+  font-weight: 600;
+}
+
+.ct-balance-owed {
+  color: var(--danger);
+}
+
+.ct-balance-done {
+  color: #2d7a4f;
+  font-weight: 700;
+}
+
+.ct-td-actions {
+  white-space: nowrap;
+}
+
+/* ── In-Kind Row ───────────────────────────────────────────────── */
+
+.ct-inkind-row {
+  flex-wrap: wrap;
+}
+
+/* ── Settings ──────────────────────────────────────────────────── */
+
+.ct-settings-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.ct-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 4px;
+  border-bottom: 1px dashed var(--paper-line);
+}
+
+.ct-settings-row:last-child {
+  border-bottom: none;
+}
+
+.ct-settings-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ct-settings-name {
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.ct-settings-goal {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ct-settings-edit {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+/* ── Modal ─────────────────────────────────────────────────────── */
+
+.ct-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.ct-modal {
+  background: white;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+}
+
+/* ── Quick Donate ──────────────────────────────────────────────── */
+
+.ct-quick-donate {
+  border-color: var(--accent);
+}
+
+/* ── Nav separator ─────────────────────────────────────────────── */
+
+.nav-sep {
+  color: var(--paper-line);
+  margin: 0 4px;
+}
+
+/* ── Mobile tweaks ─────────────────────────────────────────────── */
+
+@media (max-width: 480px) {
+  .ct-table {
+    font-size: 13px;
+  }
+
+  .ct-table th,
+  .ct-table td {
+    padding: 8px 6px;
+  }
+
+  .ct-form-row {
+    flex-direction: column;
+  }
+
+  .ct-form-row .ct-input {
+    width: 100%;
+  }
+
+  .ct-form-row .ct-input-short {
+    width: 100%;
+  }
+
+  .ct-big-number {
+    font-size: 26px;
+  }
+}

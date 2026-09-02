@@ -1,5 +1,9 @@
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 
+// ═══════════════════════════════════════════════════════════════════
+// Attendance types & API
+// ═══════════════════════════════════════════════════════════════════
+
 export type Person = {
   id: number;
   name: string;
@@ -104,4 +108,223 @@ export async function verifyPin(pin: string): Promise<boolean> {
     body: JSON.stringify({ pin }),
   });
   return res.ok;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// Contribution Tracker types & API
+// ═══════════════════════════════════════════════════════════════════
+
+export type GroupSettings = {
+  id: number;
+  group_name: string;
+  currency_symbol: string;
+  override_goal_amount: number | null;
+};
+
+export type Category = {
+  id: number;
+  name: string;
+  override_goal_amount: number | null;
+};
+
+export type Pledge = {
+  id: number;
+  category_id: number;
+  person_name: string;
+  pledged_amount: number | null;
+  pledged_item: string | null;
+  is_in_kind: boolean;
+  in_kind_fulfilled: boolean;
+  note: string | null;
+  total_contributed: number;
+  balance: number | null;
+};
+
+export type Contribution = {
+  id: number;
+  pledge_id: number;
+  amount: number;
+  date_paid: string;
+  note: string | null;
+};
+
+export type CategorySummary = {
+  id: number;
+  name: string;
+  total_pledged: number;
+  total_contributed: number;
+  goal_amount: number;
+  pct_complete: number;
+  in_kind_total: number;
+  in_kind_fulfilled: number;
+  pledge_count: number;
+};
+
+export type TopContributor = {
+  person_name: string;
+  total_contributed: number;
+};
+
+export type OutstandingPledger = {
+  pledge_id: number;
+  person_name: string;
+  category_name: string;
+  pledged_amount: number;
+  total_contributed: number;
+  balance: number;
+};
+
+export type Summary = {
+  group_name: string;
+  currency_symbol: string;
+  total_pledged: number;
+  total_contributed: number;
+  goal_amount: number;
+  pct_complete: number;
+  categories: CategorySummary[];
+  top_contributors: TopContributor[];
+  outstanding_pledgers: OutstandingPledger[];
+  in_kind_total: number;
+  in_kind_fulfilled: number;
+};
+
+async function ctFetch<T>(path: string, options?: RequestInit): Promise<T> {
+  const res = await fetch(`${API_URL}/ct${path}`, {
+    headers: { "Content-Type": "application/json", ...options?.headers },
+    ...options,
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({}));
+    throw new Error(body.detail || `Request failed (${res.status})`);
+  }
+  if (res.status === 204) return undefined as T;
+  return res.json();
+}
+
+// -- Settings --
+export async function getGroupSettings(): Promise<GroupSettings> {
+  return ctFetch<GroupSettings>("/settings");
+}
+
+export async function updateGroupSettings(data: {
+  group_name?: string;
+  currency_symbol?: string;
+  override_goal_amount?: number | null;
+}): Promise<GroupSettings> {
+  return ctFetch<GroupSettings>("/settings", {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+// -- Categories --
+export async function getCategories(): Promise<Category[]> {
+  return ctFetch<Category[]>("/categories");
+}
+
+export async function createCategory(data: {
+  name: string;
+  override_goal_amount?: number | null;
+}): Promise<Category> {
+  return ctFetch<Category>("/categories", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateCategory(
+  id: number,
+  data: { name?: string; override_goal_amount?: number | null }
+): Promise<Category> {
+  return ctFetch<Category>(`/categories/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteCategory(id: number): Promise<void> {
+  return ctFetch<void>(`/categories/${id}`, { method: "DELETE" });
+}
+
+// -- Pledges --
+export async function getPledges(categoryId?: number): Promise<Pledge[]> {
+  const qs = categoryId !== undefined ? `?category_id=${categoryId}` : "";
+  return ctFetch<Pledge[]>(`/pledges${qs}`);
+}
+
+export async function createPledge(data: {
+  category_id: number;
+  person_name: string;
+  pledged_amount?: number | null;
+  pledged_item?: string | null;
+  is_in_kind?: boolean;
+  note?: string | null;
+}): Promise<Pledge> {
+  return ctFetch<Pledge>("/pledges", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updatePledge(
+  id: number,
+  data: {
+    person_name?: string;
+    pledged_amount?: number | null;
+    pledged_item?: string | null;
+    is_in_kind?: boolean;
+    note?: string | null;
+  }
+): Promise<Pledge> {
+  return ctFetch<Pledge>(`/pledges/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deletePledge(id: number): Promise<void> {
+  return ctFetch<void>(`/pledges/${id}`, { method: "DELETE" });
+}
+
+export async function fulfillInKind(id: number): Promise<Pledge> {
+  return ctFetch<Pledge>(`/pledges/${id}/fulfill`, { method: "PATCH" });
+}
+
+// -- Contributions --
+export async function addContribution(
+  pledgeId: number,
+  data: { amount: number; date_paid: string; note?: string | null }
+): Promise<Contribution> {
+  return ctFetch<Contribution>(`/pledges/${pledgeId}/contributions`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteContribution(id: number): Promise<void> {
+  return ctFetch<void>(`/contributions/${id}`, { method: "DELETE" });
+}
+
+// -- Quick Donate (walk-in donations) --
+export type QuickDonateResponse = {
+  pledge: Pledge;
+  contribution: Contribution;
+};
+
+export async function quickDonate(data: {
+  category_id: number;
+  person_name: string;
+  amount: number;
+  date_paid: string;
+  note?: string | null;
+}): Promise<QuickDonateResponse> {
+  return ctFetch<QuickDonateResponse>("/quick-donate", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+// -- Summary --
+export async function getSummary(): Promise<Summary> {
+  return ctFetch<Summary>("/summary");
 }
