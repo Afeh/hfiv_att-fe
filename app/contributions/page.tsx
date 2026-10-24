@@ -143,6 +143,51 @@ export default function ContributionsDashboard() {
         </div>
       </section>
 
+      {/* Funds */}
+      <section className="ct-section">
+        <div className="ct-section-heading">Funds</div>
+        <div className="ct-funds-grid">
+          <div className="ct-funds-item">
+            <span className="ct-funds-label">Contributed</span>
+            <span className="ct-funds-value">
+              {fmt(summary.total_contributed)}
+            </span>
+          </div>
+          <div className="ct-funds-item">
+            <span className="ct-funds-label">Spent</span>
+            <span className="ct-funds-value">
+              {fmt(summary.total_expenditure)}
+            </span>
+          </div>
+          <div className="ct-funds-item">
+            <span className="ct-funds-label">Remaining</span>
+            <span
+              className={`ct-funds-value ${
+                summary.remaining_amount < 0
+                  ? "ct-funds-negative"
+                  : "ct-funds-positive"
+              }`}
+            >
+              {fmt(summary.remaining_amount)}
+            </span>
+          </div>
+        </div>
+        <div className="ct-action-group">
+          <Link
+            href="/contributions/contributors"
+            className="ct-btn-sm ct-btn-secondary"
+          >
+            All Contributors
+          </Link>
+          <Link
+            href="/contributions/expenditure"
+            className="ct-btn-sm ct-btn-secondary"
+          >
+            Expenditure
+          </Link>
+        </div>
+      </section>
+
       {/* Categories */}
       {summary.categories.length > 0 && (
         <section className="ct-section">

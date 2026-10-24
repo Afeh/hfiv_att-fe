@@ -1332,3 +1332,68 @@ body {
     font-size: 26px;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════
+   Funds & Expenditure
+   ═══════════════════════════════════════════════════════════════════ */
+
+.ct-funds-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.ct-funds-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  min-width: 0;
+}
+
+.ct-funds-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.ct-funds-value {
+  font-family: var(--font-display), serif;
+  font-size: 16px;
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.ct-funds-positive {
+  color: #2d7a4f;
+}
+
+.ct-funds-negative {
+  color: var(--danger);
+}
+
+.ct-expense-row {
+  flex-wrap: wrap;
+}
+
+.ct-list-spent {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--danger);
+}
+
+a.ct-btn-sm {
+  text-decoration: none;
+  display: inline-block;
+}
+
+@media (max-width: 400px) {
+  .ct-funds-grid {
+    grid-template-columns: 1fr;
+  }
+}

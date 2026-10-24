@@ -186,6 +186,25 @@ export type Summary = {
   outstanding_pledgers: OutstandingPledger[];
   in_kind_total: number;
   in_kind_fulfilled: number;
+  total_expenditure: number;
+  remaining_amount: number;
+};
+
+export type Contributor = {
+  person_name: string;
+  total_contributed: number;
+  contribution_count: number;
+  category_names: string[];
+};
+
+export type Expenditure = {
+  id: number;
+  description: string;
+  amount: number;
+  date_spent: string;
+  category_id: number | null;
+  category_name: string | null;
+  note: string | null;
 };
 
 async function ctFetch<T>(path: string, options?: RequestInit): Promise<T> {
@@ -322,6 +341,49 @@ export async function quickDonate(data: {
     method: "POST",
     body: JSON.stringify(data),
   });
+}
+
+// -- Contributors --
+export async function getContributors(): Promise<Contributor[]> {
+  return ctFetch<Contributor[]>("/contributors");
+}
+
+// -- Expenditures --
+export async function getExpenditures(): Promise<Expenditure[]> {
+  return ctFetch<Expenditure[]>("/expenditures");
+}
+
+export async function createExpenditure(data: {
+  description: string;
+  amount: number;
+  date_spent: string;
+  category_id?: number | null;
+  note?: string | null;
+}): Promise<Expenditure> {
+  return ctFetch<Expenditure>("/expenditures", {
+    method: "POST",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function updateExpenditure(
+  id: number,
+  data: {
+    description?: string;
+    amount?: number;
+    date_spent?: string;
+    category_id?: number | null;
+    note?: string | null;
+  }
+): Promise<Expenditure> {
+  return ctFetch<Expenditure>(`/expenditures/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify(data),
+  });
+}
+
+export async function deleteExpenditure(id: number): Promise<void> {
+  return ctFetch<void>(`/expenditures/${id}`, { method: "DELETE" });
 }
 
 // -- Summary --
